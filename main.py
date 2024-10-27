@@ -11,7 +11,7 @@ config = {
     "database": "api_matchpet"
 }
 cnxx = cnx.connect(**config)
-
+x=0
 @app.route("/")
 def index():
     return "ola sin h"
@@ -23,7 +23,6 @@ def get_user(idUser):
     cur.execute("SELECT * FROM user WHERE idUser = %s", (idUser,))
     user = cur.fetchone()
     cur.close()
-      
     if user:
         columns = [
             "idUser", "email", "pass", "name", "lastName1", "lastName2", 
@@ -33,7 +32,6 @@ def get_user(idUser):
         user_data = dict(zip(columns, user))
         return jsonify(user_data)
     return jsonify({"error": "User not found"}), 404
-
 
 if __name__ == '__main__':
     app.run(debug=True)
