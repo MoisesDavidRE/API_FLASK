@@ -33,6 +33,18 @@ def get_user(idUser):
         return jsonify(user_data)
     return jsonify({"error": "User not found"}), 404
 
+@app.route("/pets/<idPet>")
+def get_user_name(idUser    ):
+    cur = cnxx.cursor()
+    cur.execute("SELECT idUser,name FROM user WHERE idUser = %s", (idUser,))
+    user = cur.fetchone()
+    cur.close()
+    if user:
+        columns = ["idUser", "name"]
+        user_data = dict(zip(columns, user))
+        return jsonify(user_data)
+    return jsonify({"error": "User not found"}), 404
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0",port=4000)
     
